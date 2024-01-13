@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface PlayerDAO extends JpaRepository<PlayerEntity, Integer> {
     List<PlayerEntity> findAll();
     PlayerEntity findById(int id);

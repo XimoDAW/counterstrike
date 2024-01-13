@@ -21,6 +21,17 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public Player getById(int id) {
-        return playerRepository.getById(id);
+        Player player = playerRepository.getById(id);
+
+        if (playerRepository.getById(id).getTeam().getPosition() == "false") {
+            player.getTeam().setPosition("COUNTER TERRORIST");
+        }else {
+            player.getTeam().setPosition("TERRORIST");
+        }
+
+        if (playerRepository.getById(id).getDeathYear() == 0)
+            player.setDeathYear(null);
+
+        return player;
     }
 }

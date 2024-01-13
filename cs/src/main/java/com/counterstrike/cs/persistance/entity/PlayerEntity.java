@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -37,5 +38,9 @@ public class PlayerEntity {
     private ServerEntity server;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Weapon> weapon;
+    @JoinTable(
+            name = "use_weapon",
+            joinColumns = @JoinColumn(name = "id_player"),
+            inverseJoinColumns = @JoinColumn(name = "id_weapon"))
+    private List<WeaponEntity> weapons;
 }

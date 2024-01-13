@@ -25,4 +25,5 @@ public class PlayerRepositoryImpl implements PlayerRepository {
         Player player = PlayerMapper.mapper.toPlayer(playerDAO.findById(id));
         return player;
     }
+    
 }

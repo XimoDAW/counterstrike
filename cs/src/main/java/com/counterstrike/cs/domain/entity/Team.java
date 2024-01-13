@@ -12,5 +12,5 @@ import lombok.Setter;
 public class Team {
     private int id;
     private String name;
-    private boolean terrorist;
+    private String position;
 }

@@ -16,15 +16,16 @@ public interface PlayerMapper {
 
     @Mapping(target = "team", ignore = true)
     @Mapping(target = "server", ignore = true)
+    @Mapping(target = "weapons", ignore = true)
     List<Player> toPlayer(List<PlayerEntity> playerEntity);
     @Mapping(target = "team", ignore = true)
     @Mapping(target = "server", ignore = true)
+    @Mapping(target = "weapons", ignore = true)
     List<PlayerListWeb> toPlayerListWeb(List<Player> player);
 
-    @Mapping(target = "team", ignore = true)
-    @Mapping(target = "server", ignore = true)
+    @Mapping(target = "team")
+    @Mapping(target = "server")
+    @Mapping(target = "weapons")
     Player toPlayer(PlayerEntity playerEntity);
-    @Mapping(target = "team", ignore = true)
-    @Mapping(target = "server", ignore = true)
     PlayerDetailWeb toPlayerDetailWeb(Player player);
 }

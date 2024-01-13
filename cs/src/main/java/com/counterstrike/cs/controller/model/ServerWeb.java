@@ -12,6 +12,4 @@ public class ServerWeb {
     private int id;
     private String name;
     private String country;
-    private Team team;
-    private com.counterstrike.cs.domain.entity.Server server;
 }

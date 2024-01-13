@@ -11,5 +11,5 @@ import lombok.Setter;
 public class TeamWeb {
     private int id;
     private String name;
-    private boolean terrorist;
+    private String position;
 }
