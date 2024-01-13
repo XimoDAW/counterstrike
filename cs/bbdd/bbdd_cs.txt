@@ -1,0 +1,47 @@
+DROP DATABASE IF EXISTS cs;
+
+CREATE DATABASE cs;
+
+USE cs;
+
+CREATE TABLE team (
+id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+name VARCHAR(50),
+terrorist BIT
+);
+
+CREATE TABLE server (
+id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+name VARCHAR(50),
+country VARCHAR(50)
+);
+
+CREATE TABLE player (
+id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+name VARCHAR(50), 
+country VARCHAR(50), 
+level INT,
+birth_year INT,
+death_year INT, 
+id_team INT, 
+id_server INT, 
+FOREIGN KEY (id_team) REFERENCES team (id),
+FOREIGN KEY (id_server) REFERENCES server (id)
+);
+
+CREATE TABLE weapon (
+id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+name VARCHAR(50), 
+type VARCHAR(50), 
+power INT, 
+bullet INT,
+price INT 
+);
+
+CREATE TABLE use_weapon (
+id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+id_player INT, 
+id_weapon INT, 
+FOREIGN KEY (id_player) REFERENCES player (id),
+FOREIGN KEY (id_weapon) REFERENCES weapon (id)
+);
