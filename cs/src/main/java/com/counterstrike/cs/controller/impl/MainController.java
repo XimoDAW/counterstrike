@@ -20,10 +20,6 @@ import java.util.List;
 public class MainController {
     @Autowired
     PlayerService playerService;
-
-    @Autowired
-    ServerService serverService;
-
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/player")
     public Response getAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize) {
@@ -36,10 +32,8 @@ public class MainController {
     @GetMapping("/player/{id}")
     public Response getById(@PathVariable("id") int id) {
         PlayerDetailWeb playerDetailWeb = PlayerMapper.mapper.toPlayerDetailWeb(playerService.getById(id));
-        ServerWeb serverWeb = ServerMapper.mapper.toServerWeb(serverService.getById(id));
-        playerDetailWeb.setServerName(serverWeb.getName());
+        playerDetailWeb.setServerName(playerService.getById(id).getServer().getName());
         Response response = new Response(playerDetailWeb);
         return response;
     }
 }
-
