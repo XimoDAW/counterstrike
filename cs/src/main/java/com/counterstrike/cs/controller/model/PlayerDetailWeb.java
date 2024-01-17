@@ -16,8 +16,8 @@ public class PlayerDetailWeb {
     private int level;
     private Integer birthYear;
     private Integer deathYear;
-    private TeamWeb team;
-    private String serverName;
-    private List<WeaponWeb> weapons;
+    private String team;
+    private String server;
+    private List<String> weapons;
 
 }

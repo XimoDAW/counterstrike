@@ -27,5 +27,9 @@ public interface PlayerMapper {
     @Mapping(target = "server")
     @Mapping(target = "weapons")
     Player toPlayer(PlayerEntity playerEntity);
+
+    @Mapping(target = "team", ignore = true)
+    @Mapping(target = "server", ignore = true)
+    @Mapping(target = "weapons", ignore = true)
     PlayerDetailWeb toPlayerDetailWeb(Player player);
 }
