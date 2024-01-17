@@ -1,13 +1,17 @@
 package com.counterstrike.cs.persistance.impl;
 
 import com.counterstrike.cs.domain.entity.Player;
+import com.counterstrike.cs.domain.entity.Server;
 import com.counterstrike.cs.domain.repository.PlayerRepository;
+import com.counterstrike.cs.exception.ResourceNotFoundException;
 import com.counterstrike.cs.mapper.PlayerMapper;
+import com.counterstrike.cs.mapper.ServerMapper;
 import com.counterstrike.cs.persistance.dao.PlayerDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PlayerRepositoryImpl implements PlayerRepository {
@@ -21,9 +25,16 @@ public class PlayerRepositoryImpl implements PlayerRepository {
     }
 
     @Override
-    public Player getById(int id) {
-        Player player = PlayerMapper.mapper.toPlayer(playerDAO.findById(id));
-        return player;
+    public Optional<Player> getById(int id) {
+        try {
+            Player player = PlayerMapper.mapper.toPlayer(playerDAO.findById(id));
+            return Optional.ofNullable(player);
+        }catch (ResourceNotFoundException e) {
+            throw new RuntimeException(e.getMessage());
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
     }
     
 }

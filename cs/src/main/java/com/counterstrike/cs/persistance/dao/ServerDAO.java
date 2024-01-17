@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface ServerDAO extends JpaRepository<ServerEntity, Integer> {
     List<ServerEntity> findAll();
-    Optional<ServerEntity> findById(int id);
+    ServerEntity findById(int id);
 }

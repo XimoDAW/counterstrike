@@ -20,8 +20,14 @@ public class ServerRepositoryImpl implements ServerRepository {
 
     @Override
     public Optional<Server> getById(int id) {
-        Server server = ServerMapper.mapper.toServer(serverDAO.findById(id).orElse(null));
-        return Optional.of(server);
+        try {
+            Server server = ServerMapper.mapper.toServer(serverDAO.findById(id));
+            return Optional.ofNullable(server);
+        }catch (ResourceNotFoundException e) {
+            throw new RuntimeException(e.getMessage());
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     @Override

@@ -31,11 +31,11 @@ public class MainController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/player/{id}")
     public Response getById(@PathVariable("id") int id) {
-        PlayerDetailWeb playerDetailWeb = PlayerMapper.mapper.toPlayerDetailWeb(playerService.getById(id));
-        playerDetailWeb.setServer(playerService.getById(id).getServer().getName());
-        playerDetailWeb.setTeam(playerService.getById(id).getTeam().getName());
+        PlayerDetailWeb playerDetailWeb = PlayerMapper.mapper.toPlayerDetailWeb(playerService.getById(id).orElse(null));
+        playerDetailWeb.setServer(playerService.getById(id).get().getServer().getName());
+        playerDetailWeb.setTeam(playerService.getById(id).get().getTeam().getName());
         List<String> weapons = new ArrayList<>();
-        playerService.getById(id).getWeapons().forEach(weapon -> weapons.add(weapon.getName()));
+        playerService.getById(id).get().getWeapons().forEach(weapon -> weapons.add(weapon.getName()));
         playerDetailWeb.setWeapons(weapons);
         Response response = new Response(playerDetailWeb);
         return response;
