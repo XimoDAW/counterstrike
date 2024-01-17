@@ -8,6 +8,9 @@ import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ServerServiceImpl implements ServerService {
 
@@ -15,7 +18,12 @@ public class ServerServiceImpl implements ServerService {
     ServerRepository serverRepository;
 
     @Override
-    public Server getById(int id) {
+    public Optional<Server> getById(int id) {
         return serverRepository.getById(id);
+    }
+
+    @Override
+    public List<Server> getAll() {
+        return serverRepository.getAll();
     }
 }

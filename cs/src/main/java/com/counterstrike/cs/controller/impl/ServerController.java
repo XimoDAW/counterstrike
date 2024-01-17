@@ -19,9 +19,17 @@ public class ServerController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/server/{id}")
-    public Response getAll(@PathVariable("id") int id) {
-        ServerWeb serverWeb = ServerMapper.mapper.toServerWeb(serverService.getById(id));
+    public Response getById(@PathVariable("id") int id) {
+        ServerWeb serverWeb = ServerMapper.mapper.toServerWeb(serverService.getById(id).orElse(null));
         Response response = new Response(serverWeb);
+        return response;
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/server")
+    public Response getAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize) {
+        List<ServerWeb> serverListWebs = ServerMapper.mapper.toServerWebList(serverService.getAll());
+        Response response = new Response(serverListWebs);
         return response;
     }
 }
