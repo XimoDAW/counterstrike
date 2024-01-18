@@ -28,4 +28,10 @@ public class WeaponServiceImpl implements WeaponService {
     public List<Weapon> getAll() {
         return weaponRepository.getAll();
     }
+
+    @Override
+    public int insertWeapon(Weapon weapon) {
+        weaponRepository.insertWeapon(weapon);
+        return 0;
+    }
 }

@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface TeamRepository {
     public Optional<Team> getById(int id);
     public List<Team> getAll();
+    public int insertTeam(Team team);
 }

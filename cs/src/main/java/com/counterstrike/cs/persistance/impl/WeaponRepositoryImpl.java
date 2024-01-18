@@ -31,6 +31,12 @@ public class WeaponRepositoryImpl implements WeaponRepository{
     }
 
     @Override
+    public int insertWeapon(Weapon weapon) {
+        weaponDAO.save(WeaponMapper.mapper.toWeaponEntity(weapon));
+        return 0;
+    }
+
+    @Override
     public List<Weapon> getAll() {
         List<Weapon> weaponList = WeaponMapper.mapper.toWeaponList(weaponDAO.findAll());
         return weaponList;

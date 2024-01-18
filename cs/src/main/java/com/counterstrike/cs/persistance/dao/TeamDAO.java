@@ -9,4 +9,5 @@ import java.util.List;
 public interface TeamDAO extends JpaRepository<TeamEntity, Integer> {
     List<TeamEntity> findAll();
     TeamEntity findById(int id);
+    TeamEntity save(Team team);
 }

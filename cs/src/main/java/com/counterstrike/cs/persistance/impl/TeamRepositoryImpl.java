@@ -3,6 +3,7 @@ package com.counterstrike.cs.persistance.impl;
 import com.counterstrike.cs.domain.entity.Team;
 import com.counterstrike.cs.domain.repository.TeamRepository;
 import com.counterstrike.cs.exception.ResourceNotFoundException;
+import com.counterstrike.cs.mapper.ServerMapper;
 import com.counterstrike.cs.mapper.TeamMapper;
 import com.counterstrike.cs.persistance.dao.TeamDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,11 @@ public class TeamRepositoryImpl implements TeamRepository {
     public List<Team> getAll() {
         List<Team> teamList = TeamMapper.mapper.toTeamList(teamDAO.findAll());
         return teamList;
+    }
+
+    @Override
+    public int insertTeam(Team team) {
+        teamDAO.save(TeamMapper.mapper.toTeamEntity(team));
+        return 0;
     }
 }

@@ -29,4 +29,10 @@ public class TeamServiceImpl implements TeamService {
     public List<Team> getAll() {
         return teamRepository.getAll();
     }
+
+    @Override
+    public int insertTeam(Team team) {
+        teamRepository.insertTeam(team);
+        return 0;
+    }
 }
