@@ -36,5 +36,11 @@ public class PlayerRepositoryImpl implements PlayerRepository {
         }
 
     }
-    
+
+    @Override
+    public int insertPlayer(Player player) {
+        playerDAO.save(PlayerMapper.mapper.toPlayerEntity(player));
+        return 0;
+    }
+
 }

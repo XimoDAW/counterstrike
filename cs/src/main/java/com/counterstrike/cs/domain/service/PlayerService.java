@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface PlayerService {
     public List<Player> getAll();
     public Optional<Player> getById(int id);
+    public int insertPlayer(Player player);
 }

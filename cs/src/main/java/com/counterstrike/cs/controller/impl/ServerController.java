@@ -1,7 +1,9 @@
 package com.counterstrike.cs.controller.impl;
 
 import com.counterstrike.cs.controller.model.PlayerListWeb;
+import com.counterstrike.cs.controller.model.ServerCreate;
 import com.counterstrike.cs.controller.model.ServerWeb;
+import com.counterstrike.cs.domain.entity.Server;
 import com.counterstrike.cs.domain.service.ServerService;
 import com.counterstrike.cs.http_response.Response;
 import com.counterstrike.cs.mapper.PlayerMapper;
@@ -30,6 +32,15 @@ public class ServerController {
     public Response getAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize) {
         List<ServerWeb> serverListWebs = ServerMapper.mapper.toServerWebList(serverService.getAll());
         Response response = new Response(serverListWebs);
+        return response;
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/server")
+    public Response insertServer(@RequestBody ServerCreate serverCreate) {
+        Server server = ServerMapper.mapper.toServer(serverCreate);
+        serverService.insertServer(server);
+        Response response = new Response(server.getId());
         return response;
     }
 }

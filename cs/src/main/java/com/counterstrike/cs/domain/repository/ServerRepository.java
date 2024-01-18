@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface ServerRepository {
     public Optional<Server> getById(int id);
     public List<Server> getAll();
+    public int insertServer(Server server);
 }

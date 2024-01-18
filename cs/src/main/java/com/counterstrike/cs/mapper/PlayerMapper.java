@@ -1,5 +1,6 @@
 package com.counterstrike.cs.mapper;
 
+import com.counterstrike.cs.controller.model.PlayerCreate;
 import com.counterstrike.cs.controller.model.PlayerDetailWeb;
 import com.counterstrike.cs.controller.model.PlayerListWeb;
 import com.counterstrike.cs.domain.entity.Player;
@@ -32,4 +33,6 @@ public interface PlayerMapper {
     @Mapping(target = "server", ignore = true)
     @Mapping(target = "weapons", ignore = true)
     PlayerDetailWeb toPlayerDetailWeb(Player player);
+    Player toPlayer(PlayerCreate playerCreate);
+    PlayerEntity toPlayerEntity(Player player);
 }

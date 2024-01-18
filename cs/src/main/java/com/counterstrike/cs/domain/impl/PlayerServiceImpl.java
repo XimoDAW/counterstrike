@@ -26,17 +26,16 @@ public class PlayerServiceImpl implements PlayerService {
         Player player = playerRepository.getById(id).orElse(null);
 
         if(playerRepository.getById(id).isPresent()){
-            if (playerRepository.getById(id).get().getTeam().getPosition() == "false") {
-                player.getTeam().setPosition("COUNTER TERRORIST");
-            }else {
-                player.getTeam().setPosition("TERRORIST");
-            }
-
             if (playerRepository.getById(id).get().getDeathYear() == 0)
                 player.setDeathYear(null);
             return Optional.of(player);
         }else {
             throw new ResourceNotFoundException("No se encuentra el jugador");
         }
+    }
+
+    @Override
+    public int insertPlayer(Player player) {
+        return playerRepository.insertPlayer(player);
     }
 }

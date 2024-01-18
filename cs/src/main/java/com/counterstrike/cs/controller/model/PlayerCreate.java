@@ -9,14 +9,13 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PlayerDetailWeb {
-    private int id;
+public class PlayerCreate {
     private String name;
     private String country;
     private int level;
     private Integer birthYear;
     private Integer deathYear;
-    private String team;
-    private String server;
-    private List<String> weapons;
+    private int id_team;
+    private int id_server;
+    private List<Integer> id_weapons;
 }

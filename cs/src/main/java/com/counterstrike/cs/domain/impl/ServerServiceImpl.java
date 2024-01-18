@@ -31,4 +31,10 @@ public class ServerServiceImpl implements ServerService {
     public List<Server> getAll() {
         return serverRepository.getAll();
     }
+
+    @Override
+    public int insertServer(Server server) {
+        serverRepository.insertServer(server);
+        return 0;
+    }
 }

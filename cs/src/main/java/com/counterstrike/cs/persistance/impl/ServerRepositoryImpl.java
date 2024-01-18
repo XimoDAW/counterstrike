@@ -35,4 +35,10 @@ public class ServerRepositoryImpl implements ServerRepository {
         List<Server> serverList = ServerMapper.mapper.toServerList(serverDAO.findAll());
         return serverList;
     }
+
+    @Override
+    public int insertServer(Server server) {
+        serverDAO.save(ServerMapper.mapper.toServerEntity(server));
+        return 0;
+    }
 }

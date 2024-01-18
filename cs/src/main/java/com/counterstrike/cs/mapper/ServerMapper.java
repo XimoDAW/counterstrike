@@ -1,5 +1,6 @@
 package com.counterstrike.cs.mapper;
 
+import com.counterstrike.cs.controller.model.ServerCreate;
 import com.counterstrike.cs.controller.model.ServerWeb;
 import com.counterstrike.cs.domain.entity.Server;
 import com.counterstrike.cs.persistance.entity.ServerEntity;
@@ -17,4 +18,6 @@ public interface ServerMapper {
     ServerWeb toServerWeb (Server server);
     List<Server> toServerList (List<ServerEntity> serverEntityList);
     List<ServerWeb> toServerWebList (List<Server> serverList);
+    Server toServer(ServerCreate serverCreate);
+    ServerEntity toServerEntity(Server server);
 }

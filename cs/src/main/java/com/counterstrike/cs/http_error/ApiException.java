@@ -12,22 +12,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ApiException {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({
-            InternalServerErrorException.class
+            InternalServerErrorException.class,
+            ResourceNotFoundException.class
     })
     @ResponseBody
     public ErrorMessage notFoundRequest (Exception e) {
         return new ErrorMessage(e.getMessage(), HttpStatus.NOT_FOUND.value());
     }
-
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler({
-            ResourceNotFoundException.class
-    })
-    @ResponseBody
-    public ErrorMessage serverError (Exception e) {
-        return new ErrorMessage(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
-    }
-
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler({
             Exception.class
