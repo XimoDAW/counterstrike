@@ -35,4 +35,9 @@ public class TeamServiceImpl implements TeamService {
         teamRepository.insertTeam(team);
         return 0;
     }
+
+    @Override
+    public int deleteTeam(int id) {
+        return teamRepository.deleteTeam(id);
+    }
 }

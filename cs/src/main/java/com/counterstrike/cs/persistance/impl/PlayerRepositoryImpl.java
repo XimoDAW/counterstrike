@@ -43,4 +43,10 @@ public class PlayerRepositoryImpl implements PlayerRepository {
         return 0;
     }
 
+    @Override
+    public int deletePlayer(int id) {
+        playerDAO.deleteById(id);
+        return 0;
+    }
+
 }

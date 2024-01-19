@@ -13,4 +13,5 @@ public interface ServerDAO extends JpaRepository<ServerEntity, Integer> {
     List<ServerEntity> findAll();
     ServerEntity findById(int id);
     ServerEntity save(Server server);
+    ServerEntity deleteById(int id);
 }

@@ -9,4 +9,5 @@ public interface ServerService {
     public Optional<Server> getById(int id);
     public List<Server> getAll();
     public int insertServer(Server server);
+    public int deleteServer(int id);
 }

@@ -34,4 +34,9 @@ public class WeaponServiceImpl implements WeaponService {
         weaponRepository.insertWeapon(weapon);
         return 0;
     }
+
+    @Override
+    public int deleteWeapon(int id) {
+        return weaponRepository.deleteWeapon(id);
+    }
 }

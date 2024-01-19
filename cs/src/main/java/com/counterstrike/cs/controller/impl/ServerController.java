@@ -43,4 +43,11 @@ public class ServerController {
         Response response = new Response(server.getId());
         return response;
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @DeleteMapping("/server/{id}")
+    public Response deleteServer(@PathVariable("id") int id) {
+        Response response = new Response(serverService.deleteServer(id));
+        return response;
+    }
 }

@@ -11,4 +11,5 @@ public interface WeaponDAO extends JpaRepository<WeaponEntity, Integer> {
     List<WeaponEntity> findAll();
     WeaponEntity findById(int id);
     WeaponEntity save (Weapon weapon);
+    WeaponEntity deleteById(int id);
 }

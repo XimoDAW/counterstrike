@@ -41,4 +41,11 @@ public class TeamController {
         Response response = new Response(teamService.insertTeam(team));
         return response;
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @DeleteMapping("/team/{id}")
+    public Response deleteTeam(@PathVariable("id") int id) {
+        Response response = new Response(teamService.deleteTeam(id));
+        return response;
+    }
 }

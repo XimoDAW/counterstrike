@@ -37,4 +37,9 @@ public class ServerServiceImpl implements ServerService {
         serverRepository.insertServer(server);
         return 0;
     }
+
+    @Override
+    public int deleteServer(int id) {
+        return serverRepository.deleteServer(id);
+    }
 }

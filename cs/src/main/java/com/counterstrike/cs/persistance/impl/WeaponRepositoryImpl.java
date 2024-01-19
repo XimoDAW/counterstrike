@@ -37,6 +37,12 @@ public class WeaponRepositoryImpl implements WeaponRepository{
     }
 
     @Override
+    public int deleteWeapon(int id) {
+        weaponDAO.deleteById(id);
+        return 0;
+    }
+
+    @Override
     public List<Weapon> getAll() {
         List<Weapon> weaponList = WeaponMapper.mapper.toWeaponList(weaponDAO.findAll());
         return weaponList;

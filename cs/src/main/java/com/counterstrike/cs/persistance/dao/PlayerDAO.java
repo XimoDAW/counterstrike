@@ -11,4 +11,5 @@ public interface PlayerDAO extends JpaRepository<PlayerEntity, Integer> {
     List<PlayerEntity> findAll();
     PlayerEntity findById(int id);
     PlayerEntity save(Player player);
+    PlayerEntity deleteById(int id);
 }

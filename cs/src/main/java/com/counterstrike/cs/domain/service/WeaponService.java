@@ -9,4 +9,5 @@ public interface WeaponService {
     public Optional<Weapon> getById(int id);
     public List<Weapon> getAll();
     public int insertWeapon(Weapon weapon);
+    public int deleteWeapon(int id);
 }

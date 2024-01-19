@@ -39,4 +39,11 @@ public class WeaponController {
         Response response = new Response(weaponService.insertWeapon(weapon));
         return response;
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @DeleteMapping("/weapon/{id}")
+    public Response deleteWeapon(@PathVariable("id") int id) {
+        Response response = new Response(weaponService.deleteWeapon(id));
+        return response;
+    }
 }

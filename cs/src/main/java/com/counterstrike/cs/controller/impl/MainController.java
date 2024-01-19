@@ -66,4 +66,11 @@ public class MainController {
         Response response = new Response(player.getId());
         return response;
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @DeleteMapping("/player/{id}")
+    public Response deletePlayer(@PathVariable("id") int id) {
+        Response response = new Response(playerService.deletePlayer(id));
+        return response;
+    }
 }

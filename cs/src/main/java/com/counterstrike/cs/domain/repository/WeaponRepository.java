@@ -9,4 +9,5 @@ public interface WeaponRepository {
     public List<Weapon> getAll();
     public Optional<Weapon> getById(int id);
     public int insertWeapon(Weapon weapon);
+    public int deleteWeapon(int id);
 }

@@ -47,4 +47,10 @@ public class TeamRepositoryImpl implements TeamRepository {
         teamDAO.save(TeamMapper.mapper.toTeamEntity(team));
         return 0;
     }
+
+    @Override
+    public int deleteTeam(int id) {
+        teamDAO.deleteById(id);
+        return 0;
+    }
 }

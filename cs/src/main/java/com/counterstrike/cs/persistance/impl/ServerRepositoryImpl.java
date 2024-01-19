@@ -41,4 +41,10 @@ public class ServerRepositoryImpl implements ServerRepository {
         serverDAO.save(ServerMapper.mapper.toServerEntity(server));
         return 0;
     }
+
+    @Override
+    public int deleteServer(int id) {
+        serverDAO.deleteById(id);
+        return 0;
+    }
 }
