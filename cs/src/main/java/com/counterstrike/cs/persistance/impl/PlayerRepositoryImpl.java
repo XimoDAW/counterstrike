@@ -6,6 +6,7 @@ import com.counterstrike.cs.domain.repository.PlayerRepository;
 import com.counterstrike.cs.exception.ResourceNotFoundException;
 import com.counterstrike.cs.mapper.PlayerMapper;
 import com.counterstrike.cs.mapper.ServerMapper;
+import com.counterstrike.cs.mapper.WeaponMapper;
 import com.counterstrike.cs.persistance.dao.PlayerDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,6 +29,7 @@ public class PlayerRepositoryImpl implements PlayerRepository {
     public Optional<Player> getById(int id) {
         try {
             Player player = PlayerMapper.mapper.toPlayer(playerDAO.findById(id));
+            player.setWeapons(WeaponMapper.mapper.toWeaponList(playerDAO.findById(id).getWeapons()));
             return Optional.ofNullable(player);
         }catch (ResourceNotFoundException e) {
             throw new RuntimeException(e.getMessage());

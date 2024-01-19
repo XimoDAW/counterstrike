@@ -10,19 +10,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "weapon")
+@Table(name = "type")
 @Data
-
-public class WeaponEntity {
+public class TypeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int id;
     private String name;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_type")
-    private TypeEntity type;
-    private int power;
-    private int bullet;
-    private int price;
 }

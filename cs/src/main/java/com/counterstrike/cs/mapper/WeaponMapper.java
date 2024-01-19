@@ -8,6 +8,7 @@ import com.counterstrike.cs.persistance.entity.ServerEntity;
 import com.counterstrike.cs.persistance.entity.TeamEntity;
 import com.counterstrike.cs.persistance.entity.WeaponEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -15,11 +16,13 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface WeaponMapper {
     WeaponMapper mapper = Mappers.getMapper(WeaponMapper.class);
+    @Mapping(target = "type", ignore = true)
     Weapon toWeapon (WeaponEntity weaponEntity);
     WeaponWeb toWeaponWeb (Weapon weapon);
     List<Weapon> toWeaponList (List<WeaponEntity> weaponEntityList);
     List<WeaponListWeb> toWeaponWebList (List<Weapon> weaponList);
 
     Weapon toWeapon(WeaponCreate weaponCreate);
+    @Mapping(target = "type", ignore = true)
     WeaponEntity toWeaponEntity(Weapon weapon);
 }

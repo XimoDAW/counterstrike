@@ -6,6 +6,7 @@ import com.counterstrike.cs.domain.repository.WeaponRepository;
 import com.counterstrike.cs.exception.ResourceNotFoundException;
 import com.counterstrike.cs.mapper.TeamMapper;
 import com.counterstrike.cs.mapper.WeaponMapper;
+import com.counterstrike.cs.persistance.dao.TypeDAO;
 import com.counterstrike.cs.persistance.dao.WeaponDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,11 +18,14 @@ import java.util.Optional;
 public class WeaponRepositoryImpl implements WeaponRepository{
     @Autowired
     WeaponDAO weaponDAO;
+    @Autowired
+    TypeDAO typeDAO;
 
     @Override
     public Optional<Weapon> getById(int id) {
         try {
             Weapon weapon = WeaponMapper.mapper.toWeapon(weaponDAO.findById(id));
+            weapon.setType(weaponDAO.findById(id).getType().getName());
             return Optional.ofNullable(weapon);
         }catch (ResourceNotFoundException e) {
             throw new RuntimeException(e.getMessage());

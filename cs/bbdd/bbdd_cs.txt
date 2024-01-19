@@ -29,13 +29,19 @@ FOREIGN KEY (id_team) REFERENCES team (id),
 FOREIGN KEY (id_server) REFERENCES server (id)
 );
 
+CREATE TABLE type (
+id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+name VARCHAR(50)
+);
+
 CREATE TABLE weapon (
 id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, 
-name VARCHAR(50), 
-type VARCHAR(50), 
+name VARCHAR(50),
+id_type INT, 
 power INT, 
 bullet INT,
-price INT 
+price INT,
+FOREIGN KEY (id_type) REFERENCES TYPE (id) 
 );
 
 CREATE TABLE use_weapon (

@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.counterstrike.cs.common.validation.Validation.validate;
+
 @RestController
 public class MainController {
     @Autowired
@@ -54,6 +56,7 @@ public class MainController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/player")
     public Response insertPlayer(@RequestBody PlayerCreate playerCreate) {
+        validate(playerCreate);
         Player player = PlayerMapper.mapper.toPlayer(playerCreate);
         player.setServer(serverService.getById(playerCreate.getId_server()).orElse(null));
         player.setTeam(teamService.getById(playerCreate.getId_team()).orElse(null));

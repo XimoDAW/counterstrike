@@ -8,7 +8,6 @@ import com.counterstrike.cs.persistance.entity.PlayerEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -26,7 +25,7 @@ public interface PlayerMapper {
 
     @Mapping(target = "team")
     @Mapping(target = "server")
-    @Mapping(target = "weapons")
+    @Mapping(target = "weapons", ignore = true)
     Player toPlayer(PlayerEntity playerEntity);
 
     @Mapping(target = "team", ignore = true)
@@ -34,5 +33,6 @@ public interface PlayerMapper {
     @Mapping(target = "weapons", ignore = true)
     PlayerDetailWeb toPlayerDetailWeb(Player player);
     Player toPlayer(PlayerCreate playerCreate);
+    @Mapping(target = "weapons", ignore = true)
     PlayerEntity toPlayerEntity(Player player);
 }

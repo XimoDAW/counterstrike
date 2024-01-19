@@ -1,7 +1,11 @@
 package com.counterstrike.cs.domain.impl;
 
 import com.counterstrike.cs.domain.entity.Player;
+import com.counterstrike.cs.domain.entity.Team;
 import com.counterstrike.cs.domain.repository.PlayerRepository;
+import com.counterstrike.cs.domain.repository.ServerRepository;
+import com.counterstrike.cs.domain.repository.TeamRepository;
+import com.counterstrike.cs.domain.repository.WeaponRepository;
 import com.counterstrike.cs.domain.service.PlayerService;
 import com.counterstrike.cs.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,12 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Autowired
     PlayerRepository playerRepository;
+    @Autowired
+    ServerRepository serverRepository;
+    @Autowired
+    TeamRepository teamRepository;
+    @Autowired
+    WeaponRepository weaponRepository;
 
     @Override
     public List<Player> getAll() {
@@ -24,7 +34,6 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public Optional <Player> getById(int id) {
         Player player = playerRepository.getById(id).orElse(null);
-
         if(playerRepository.getById(id).isPresent()){
             if (playerRepository.getById(id).get().getDeathYear() == 0)
                 player.setDeathYear(null);
