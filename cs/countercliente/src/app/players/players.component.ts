@@ -8,8 +8,12 @@ import { Player } from '../modelos/player';
 })
 
 export const PLAYERS: Player[] = {
-  
+
 };
+
+export const PLAYER: Player = {
+  
+}
 
 export class PlayersComponent {
   
