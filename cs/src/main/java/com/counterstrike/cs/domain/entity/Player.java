@@ -20,4 +20,16 @@ public class Player {
     private Team team;
     private Server server;
     private List<Weapon> weapons;
+
+    public Player(int id, String name, String country, int level, Integer birthYear, Integer deathYear, Team team, Server server, List<Weapon> weapons) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+        this.level = level;
+        this.birthYear = birthYear;
+        this.deathYear = deathYear;
+        this.team = team;
+        this.server = server;
+        this.weapons = weapons;
+    }
 }

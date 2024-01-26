@@ -23,7 +23,7 @@ public class ApiException {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({
-            ConstraintViolationException.class
+            ValidationException.class
     })
     @ResponseBody
     public ErrorMessage badRequest (Exception e) {

@@ -16,4 +16,13 @@ public class Weapon {
     private int power;
     private int bullet;
     private int price;
+
+    public Weapon(int id, String name, String type, int power, int bullet, int price) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.power = power;
+        this.bullet = bullet;
+        this.price = price;
+    }
 }

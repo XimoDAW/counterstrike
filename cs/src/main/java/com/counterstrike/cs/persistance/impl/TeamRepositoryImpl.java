@@ -6,6 +6,7 @@ import com.counterstrike.cs.exception.ResourceNotFoundException;
 import com.counterstrike.cs.mapper.ServerMapper;
 import com.counterstrike.cs.mapper.TeamMapper;
 import com.counterstrike.cs.persistance.dao.TeamDAO;
+import com.counterstrike.cs.persistance.entity.TeamEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -22,11 +23,10 @@ public class TeamRepositoryImpl implements TeamRepository {
         try {
             Team team = TeamMapper.mapper.toTeam(teamDAO.findById(id));
             if (team != null) {
-                if(teamDAO.findById(id).isTerrorist() ) {
-                    team.setPosition("TERRORIST");
-                }else {
-                    team.setPosition("COUNTER TERRORIST");
-                }
+                String position = "TERRORIST";
+                if(teamDAO.findById(id).isTerrorist())
+                    position = "COUNTER TERRORIST";
+                team.setPosition(position);
             }
             return Optional.ofNullable(team);
         }catch (ResourceNotFoundException e) {
@@ -44,7 +44,12 @@ public class TeamRepositoryImpl implements TeamRepository {
 
     @Override
     public int insertTeam(Team team) {
-        teamDAO.save(TeamMapper.mapper.toTeamEntity(team));
+        boolean position = true;
+        if (team.getPosition().equals("COUNTER TERRORIST"))
+            position = false;
+        TeamEntity teamEntity = TeamMapper.mapper.toTeamEntity(team);
+        teamEntity.setTerrorist(position);
+        teamDAO.save(teamEntity);
         return 0;
     }
 

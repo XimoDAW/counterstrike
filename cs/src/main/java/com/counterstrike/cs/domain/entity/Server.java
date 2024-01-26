@@ -12,6 +12,10 @@ public class Server {
     private int id;
     private String name;
     private String country;
-    private Team team;
-    private Server server;
+
+    public Server(int id, String name, String country) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+    }
 }

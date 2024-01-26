@@ -8,6 +8,7 @@ import com.counterstrike.cs.domain.repository.TeamRepository;
 import com.counterstrike.cs.domain.repository.WeaponRepository;
 import com.counterstrike.cs.domain.service.PlayerService;
 import com.counterstrike.cs.exception.ResourceNotFoundException;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +46,9 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public int insertPlayer(Player player) {
-        return playerRepository.insertPlayer(player);
+        if (player.getCountry().equals(player.getServer().getCountry()))
+            return playerRepository.insertPlayer(player);
+        throw new ValidationException("El pais del jugador debe coincidir con el pais de equipo y de servidor");
     }
 
     @Override
