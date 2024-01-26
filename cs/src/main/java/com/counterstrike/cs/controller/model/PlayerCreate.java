@@ -26,16 +26,14 @@ public class PlayerCreate {
     private int id_team;
     private int id_server;
     private List<Integer> id_weapons;
-
     public void setBirthYear(Integer birthYear) {
         if(this.deathYear != null && birthYear!= null && this.deathYear < birthYear) {
             throw new ValidationException("El año de nacimiento no puede ser mayor que el año de muerte.");
         }
         this.birthYear = birthYear;
     }
-
     public void setDeathYear(Integer deathYear) {
-        if(!(this.birthYear != null && deathYear != null &&  this.birthYear > deathYear)) {
+        if(this.birthYear != null && deathYear != null &&  this.birthYear > deathYear) {
             throw new ValidationException("El año de nacimiento no puede ser mayor que el año de muerte.");
         }
         this.deathYear = deathYear;

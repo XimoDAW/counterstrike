@@ -12,12 +12,12 @@ import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
-
     @Autowired
     PlayerRepository playerRepository;
     @Autowired
@@ -30,6 +30,17 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public List<Player> getAll() {
         return playerRepository.getAll();
+    }
+
+    @Override
+    public List<Player> getPlayersByTeam(int teamId) {
+        List<Player> playersByTeam = new ArrayList<>();
+
+        for (Player player: getAll()) {
+            if (player.getTeam().getId() == teamId)
+                playersByTeam.add(player);
+        }
+        return playersByTeam;
     }
 
     @Override
@@ -46,9 +57,14 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public int insertPlayer(Player player) {
-        if (player.getCountry().equals(player.getServer().getCountry()))
+        if(getPlayersByTeam(player.getTeam().getId()).size() >=5)
+            throw new ValidationException("Limite máximo de jugadores. Un equipo solo puede tener 5 jugadores");
+
+        if (player.getCountry().equals(player.getServer().getCountry())) {
             return playerRepository.insertPlayer(player);
-        throw new ValidationException("El pais del jugador debe coincidir con el pais de equipo y de servidor");
+        }else {
+            throw new ValidationException("El pais del jugador debe coincidir con el pais de equipo y de servidor");
+        }
     }
 
     @Override
