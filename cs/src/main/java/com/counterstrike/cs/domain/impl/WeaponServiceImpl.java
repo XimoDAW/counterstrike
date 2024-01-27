@@ -14,7 +14,6 @@ import java.util.Optional;
 public class WeaponServiceImpl implements WeaponService {
     @Autowired
     WeaponRepository weaponRepository;
-
     @Override
     public Optional<Weapon> getById(int id) {
         if (weaponRepository.getById(id).isPresent()) {

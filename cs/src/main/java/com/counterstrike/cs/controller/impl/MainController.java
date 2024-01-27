@@ -1,9 +1,6 @@
 package com.counterstrike.cs.controller.impl;
 
-import com.counterstrike.cs.controller.model.PlayerCreate;
-import com.counterstrike.cs.controller.model.PlayerDetailWeb;
-import com.counterstrike.cs.controller.model.PlayerListWeb;
-import com.counterstrike.cs.controller.model.ServerWeb;
+import com.counterstrike.cs.controller.model.*;
 import com.counterstrike.cs.domain.entity.Player;
 import com.counterstrike.cs.domain.entity.Weapon;
 import com.counterstrike.cs.domain.service.PlayerService;
@@ -17,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.counterstrike.cs.common.validation.Validation.validate;
 
@@ -74,6 +73,26 @@ public class MainController {
     @DeleteMapping("/player/{id}")
     public Response deletePlayer(@PathVariable("id") int id) {
         Response response = new Response(playerService.deletePlayer(id));
+        return response;
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PatchMapping("/player/{id}")
+    public Response updatePlayer(@PathVariable("id") int id, @RequestBody PlayerCreate playerCreate) {
+        validate(playerCreate);
+        Optional<Player> player = playerService.getById(id);
+        player.get().setName(playerCreate.getName());
+        player.get().setLevel(playerCreate.getLevel());
+        player.get().setBirthYear(playerCreate.getBirthYear());
+        player.get().setDeathYear(playerCreate.getDeathYear());
+        player.get().setServer(serverService.getById(playerCreate.getId_server()).orElse(null));
+        player.get().setTeam(teamService.getById(playerCreate.getId_team()).orElse(null));
+        List<Weapon> weapons = new ArrayList<>();
+        playerCreate.getId_weapons().forEach(idWeapon -> {
+            weapons.add(weaponService.getById(idWeapon).orElse(null));
+        });
+        player.get().setWeapons(weapons);
+        Response response = new Response(player);
         return response;
     }
 }

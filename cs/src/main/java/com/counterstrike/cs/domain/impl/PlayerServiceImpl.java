@@ -1,7 +1,6 @@
 package com.counterstrike.cs.domain.impl;
 
 import com.counterstrike.cs.domain.entity.Player;
-import com.counterstrike.cs.domain.entity.Team;
 import com.counterstrike.cs.domain.repository.PlayerRepository;
 import com.counterstrike.cs.domain.repository.ServerRepository;
 import com.counterstrike.cs.domain.repository.TeamRepository;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -60,11 +60,28 @@ public class PlayerServiceImpl implements PlayerService {
         if(getPlayersByTeam(player.getTeam().getId()).size() >=5)
             throw new ValidationException("Limite máximo de jugadores. Un equipo solo puede tener 5 jugadores");
 
+        AtomicInteger count = new AtomicInteger();
+        String type = "PISTOL";
+        player.getWeapons().forEach(p -> {
+            if (p.getType() == type) {
+                count.getAndIncrement();
+            }
+        });
+        //long i=player.getWeapons().stream().filter(p -> p.getType() == type).count();
+
+
+
+
         if (player.getCountry().equals(player.getServer().getCountry())) {
             return playerRepository.insertPlayer(player);
         }else {
             throw new ValidationException("El pais del jugador debe coincidir con el pais de equipo y de servidor");
         }
+    }
+
+    @Override
+    public int updatePlayer(Player player) {
+        return playerRepository.updatePlayer(player);
     }
 
     @Override

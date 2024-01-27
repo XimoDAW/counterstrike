@@ -46,6 +46,12 @@ public class PlayerRepositoryImpl implements PlayerRepository {
     }
 
     @Override
+    public int updatePlayer(Player player) {
+        playerDAO.save(PlayerMapper.mapper.toPlayerEntity(player));
+        return 0;
+    }
+
+    @Override
     public int deletePlayer(int id) {
         playerDAO.deleteById(id);
         return 0;

@@ -1,5 +1,6 @@
 package com.counterstrike.cs.controller.model;
 
+import com.counterstrike.cs.persistance.entity.TypeEntity;
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class WeaponCreate {
     private String name;
-    private String type;
+    private int id_type;
     @Min(value = 0, message = "EL PODER DEL ARMA NO PUEDE SER NEGATIVO")
     private int power;
     @Min(value = 0, message = "LAS BALAS NO PUEDEN SER NEGATIVAS")

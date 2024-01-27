@@ -10,10 +10,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public class PlayerTest {
     @Nested
-    @DisplayName("Test de constructor")
+    @DisplayName("Test de constructor Player")
     class getConstructorTest {
         Team teamA = new Team(1, "TeamA", "TERRORIST");
         Server serverA = new Server(1, "serverA", "Spain");
@@ -37,7 +36,6 @@ public class PlayerTest {
                     () -> assertTrue(((Object) playerA.getTeam()).getClass().getSimpleName().equals("Team")),
                     () -> assertTrue(((Object) playerA.getServer()).getClass().getSimpleName().equals("Server"))
             );
-
         }
     }
 }

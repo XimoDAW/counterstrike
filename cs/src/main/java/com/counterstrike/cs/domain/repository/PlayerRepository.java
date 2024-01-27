@@ -9,6 +9,7 @@ public interface PlayerRepository {
     public List<Player> getAll();
     public Optional<Player> getById(int id);
     public int insertPlayer(Player player);
+    public int updatePlayer(Player player);
     public int deletePlayer(int id);
 
 }
