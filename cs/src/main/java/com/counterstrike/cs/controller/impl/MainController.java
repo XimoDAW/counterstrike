@@ -92,6 +92,7 @@ public class MainController {
             weapons.add(weaponService.getById(idWeapon).orElse(null));
         });
         player.get().setWeapons(weapons);
+        playerService.updatePlayer(player.orElse(null));
         Response response = new Response(player);
         return response;
     }

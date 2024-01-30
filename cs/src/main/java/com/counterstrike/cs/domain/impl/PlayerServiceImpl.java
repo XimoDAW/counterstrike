@@ -47,8 +47,8 @@ public class PlayerServiceImpl implements PlayerService {
     public Optional <Player> getById(int id) {
         Player player = playerRepository.getById(id).orElse(null);
         if(playerRepository.getById(id).isPresent()){
-            if (playerRepository.getById(id).get().getDeathYear() == 0)
-                player.setDeathYear(null);
+            /*if (playerRepository.getById(id).get().getDeathYear() == 0)
+                player.setDeathYear(null);*/
             return Optional.of(player);
         }else {
             throw new ResourceNotFoundException("No se encuentra el jugador");
@@ -60,18 +60,6 @@ public class PlayerServiceImpl implements PlayerService {
         if(getPlayersByTeam(player.getTeam().getId()).size() >=5)
             throw new ValidationException("Limite máximo de jugadores. Un equipo solo puede tener 5 jugadores");
 
-        AtomicInteger count = new AtomicInteger();
-        String type = "PISTOL";
-        player.getWeapons().forEach(p -> {
-            if (p.getType() == type) {
-                count.getAndIncrement();
-            }
-        });
-        //long i=player.getWeapons().stream().filter(p -> p.getType() == type).count();
-
-
-
-
         if (player.getCountry().equals(player.getServer().getCountry())) {
             return playerRepository.insertPlayer(player);
         }else {
@@ -81,7 +69,13 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public int updatePlayer(Player player) {
-        return playerRepository.updatePlayer(player);
+        if(getPlayersByTeam(player.getTeam().getId()).size() >=5)
+            throw new ValidationException("Limite máximo de jugadores. Un equipo solo puede tener 5 jugadores");
+        if (player.getCountry().equals(player.getServer().getCountry())) {
+            return playerRepository.updatePlayer(player);
+        }else {
+            throw new ValidationException("El pais del jugador debe coincidir con el pais de equipo y de servidor");
+        }
     }
 
     @Override
