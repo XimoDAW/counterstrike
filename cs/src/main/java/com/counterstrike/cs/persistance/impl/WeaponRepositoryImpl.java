@@ -4,7 +4,9 @@ import com.counterstrike.cs.domain.entity.Team;
 import com.counterstrike.cs.domain.entity.Weapon;
 import com.counterstrike.cs.domain.repository.WeaponRepository;
 import com.counterstrike.cs.exception.ResourceNotFoundException;
+import com.counterstrike.cs.mapper.PlayerMapper;
 import com.counterstrike.cs.mapper.TeamMapper;
+import com.counterstrike.cs.mapper.TypeMapper;
 import com.counterstrike.cs.mapper.WeaponMapper;
 import com.counterstrike.cs.persistance.dao.TypeDAO;
 import com.counterstrike.cs.persistance.dao.WeaponDAO;
@@ -25,7 +27,7 @@ public class WeaponRepositoryImpl implements WeaponRepository{
     public Optional<Weapon> getById(int id) {
         try {
             Weapon weapon = WeaponMapper.mapper.toWeapon(weaponDAO.findById(id));
-            weapon.setType(weaponDAO.findById(id).getType().getName());
+            weapon.setType(TypeMapper.mapper.toType(weaponDAO.findById(id).getType()));
             return Optional.ofNullable(weapon);
         }catch (ResourceNotFoundException e) {
             throw new RuntimeException(e.getMessage());
@@ -36,6 +38,12 @@ public class WeaponRepositoryImpl implements WeaponRepository{
 
     @Override
     public int insertWeapon(Weapon weapon) {
+        weaponDAO.save(WeaponMapper.mapper.toWeaponEntity(weapon));
+        return 0;
+    }
+
+    @Override
+    public int updateWeapon(Weapon weapon) {
         weaponDAO.save(WeaponMapper.mapper.toWeaponEntity(weapon));
         return 0;
     }

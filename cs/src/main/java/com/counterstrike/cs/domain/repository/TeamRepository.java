@@ -10,5 +10,7 @@ public interface TeamRepository {
     public Optional<Team> getById(int id);
     public List<Team> getAll();
     public int insertTeam(Team team);
+    public int updateTeam(Team team);
+    public boolean setPosition(Team team);
     public int deleteTeam(int id);
 }

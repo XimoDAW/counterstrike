@@ -35,7 +35,18 @@ public class WeaponServiceImpl implements WeaponService {
     }
 
     @Override
+    public int updateWeapon(Weapon weapon) {
+        weaponRepository.updateWeapon(weapon);
+        return 0;
+    }
+
+    @Override
     public int deleteWeapon(int id) {
         return weaponRepository.deleteWeapon(id);
+    }
+
+    @Override
+    public boolean validateWeapon(Weapon weapon) {
+        return false;
     }
 }

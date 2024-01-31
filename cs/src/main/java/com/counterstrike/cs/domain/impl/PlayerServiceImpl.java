@@ -11,6 +11,7 @@ import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -47,8 +48,6 @@ public class PlayerServiceImpl implements PlayerService {
     public Optional <Player> getById(int id) {
         Player player = playerRepository.getById(id).orElse(null);
         if(playerRepository.getById(id).isPresent()){
-            /*if (playerRepository.getById(id).get().getDeathYear() == 0)
-                player.setDeathYear(null);*/
             return Optional.of(player);
         }else {
             throw new ResourceNotFoundException("No se encuentra el jugador");
@@ -57,11 +56,16 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public int insertPlayer(Player player) {
+        validatePlayer(player);
+        return playerRepository.insertPlayer(player);
+    }
+
+    @Override
+    public boolean validatePlayer(Player player) {
         if(getPlayersByTeam(player.getTeam().getId()).size() >=5)
             throw new ValidationException("Limite máximo de jugadores. Un equipo solo puede tener 5 jugadores");
-
         if (player.getCountry().equals(player.getServer().getCountry())) {
-            return playerRepository.insertPlayer(player);
+            return true;
         }else {
             throw new ValidationException("El pais del jugador debe coincidir con el pais de equipo y de servidor");
         }
@@ -69,13 +73,8 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public int updatePlayer(Player player) {
-        if(getPlayersByTeam(player.getTeam().getId()).size() >=5)
-            throw new ValidationException("Limite máximo de jugadores. Un equipo solo puede tener 5 jugadores");
-        if (player.getCountry().equals(player.getServer().getCountry())) {
-            return playerRepository.updatePlayer(player);
-        }else {
-            throw new ValidationException("El pais del jugador debe coincidir con el pais de equipo y de servidor");
-        }
+        validatePlayer(player);
+        return playerRepository.updatePlayer(player);
     }
 
     @Override

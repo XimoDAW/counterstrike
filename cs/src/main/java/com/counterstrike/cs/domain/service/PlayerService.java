@@ -10,6 +10,7 @@ public interface PlayerService {
     public List<Player> getPlayersByTeam(int teamId);
     public Optional<Player> getById(int id);
     public int insertPlayer(Player player);
+    public boolean validatePlayer(Player player);
     public int updatePlayer(Player player);
     public int deletePlayer(int id);
 }

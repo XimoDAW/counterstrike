@@ -1,5 +1,6 @@
 package com.counterstrike.cs.persistance.impl;
 
+import com.counterstrike.cs.domain.entity.Player;
 import com.counterstrike.cs.domain.entity.Server;
 import com.counterstrike.cs.domain.repository.ServerRepository;
 import com.counterstrike.cs.exception.ResourceNotFoundException;
@@ -38,6 +39,12 @@ public class ServerRepositoryImpl implements ServerRepository {
 
     @Override
     public int insertServer(Server server) {
+        serverDAO.save(ServerMapper.mapper.toServerEntity(server));
+        return 0;
+    }
+
+    @Override
+    public int updateServer(Server server) {
         serverDAO.save(ServerMapper.mapper.toServerEntity(server));
         return 0;
     }

@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
+import static com.counterstrike.cs.common.validation.Validation.validate;
 
 @RestController
 public class TeamController {
@@ -46,6 +49,18 @@ public class TeamController {
     @DeleteMapping("/team/{id}")
     public Response deleteTeam(@PathVariable("id") int id) {
         Response response = new Response(teamService.deleteTeam(id));
+        return response;
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PutMapping("/team/{id}")
+    public Response updateTeam(@PathVariable("id") int id, @RequestBody TeamCreate teamCreate) {
+        validate(teamCreate);
+        Optional<Team> team = teamService.getById(id);
+        team.get().setName(teamCreate.getName());
+        team.get().setPosition(teamCreate.getPosition());
+        teamService.updateTeam(team.orElse(null));
+        Response response = new Response(team);
         return response;
     }
 }

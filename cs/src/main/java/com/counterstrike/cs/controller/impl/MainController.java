@@ -77,7 +77,7 @@ public class MainController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PatchMapping("/player/{id}")
+    @PutMapping("/player/{id}")
     public Response updatePlayer(@PathVariable("id") int id, @RequestBody PlayerCreate playerCreate) {
         validate(playerCreate);
         Optional<Player> player = playerService.getById(id);

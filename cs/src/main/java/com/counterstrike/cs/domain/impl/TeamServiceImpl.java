@@ -14,8 +14,6 @@ import java.util.Optional;
 public class TeamServiceImpl implements TeamService {
     @Autowired
     TeamRepository teamRepository;
-
-
     @Override
     public Optional<Team> getById(int id) {
         if (teamRepository.getById(id).isPresent()) {
@@ -34,6 +32,11 @@ public class TeamServiceImpl implements TeamService {
     public int insertTeam(Team team) {
         teamRepository.insertTeam(team);
         return 0;
+    }
+
+    @Override
+    public int updateTeam(Team team) {
+        return teamRepository.updateTeam(team);
     }
 
     @Override

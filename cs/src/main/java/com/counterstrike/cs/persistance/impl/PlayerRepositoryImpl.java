@@ -41,6 +41,7 @@ public class PlayerRepositoryImpl implements PlayerRepository {
 
     @Override
     public int insertPlayer(Player player) {
+        System.out.println(PlayerMapper.mapper.toPlayerEntity(player).getWeapons().get(0).getName());
         playerDAO.save(PlayerMapper.mapper.toPlayerEntity(player));
         return 0;
     }

@@ -33,6 +33,5 @@ public interface PlayerMapper {
     @Mapping(target = "weapons", ignore = true)
     PlayerDetailWeb toPlayerDetailWeb(Player player);
     Player toPlayer(PlayerCreate playerCreate);
-    @Mapping(target = "weapons", ignore = true)
     PlayerEntity toPlayerEntity(Player player);
 }

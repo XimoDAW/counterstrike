@@ -1,5 +1,6 @@
 package com.counterstrike.cs.domain.impl;
 
+import com.counterstrike.cs.domain.entity.Player;
 import com.counterstrike.cs.domain.entity.Server;
 import com.counterstrike.cs.domain.repository.ServerRepository;
 import com.counterstrike.cs.domain.service.ServerService;
@@ -36,6 +37,11 @@ public class ServerServiceImpl implements ServerService {
     public int insertServer(Server server) {
         serverRepository.insertServer(server);
         return 0;
+    }
+
+    @Override
+    public int updateServer(Server server) {
+        return serverRepository.updateServer(server);
     }
 
     @Override

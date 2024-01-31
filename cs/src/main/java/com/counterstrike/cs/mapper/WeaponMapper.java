@@ -18,11 +18,11 @@ public interface WeaponMapper {
     WeaponMapper mapper = Mappers.getMapper(WeaponMapper.class);
     @Mapping(target = "type", ignore = true)
     Weapon toWeapon (WeaponEntity weaponEntity);
+    @Mapping(target = "type", ignore = true)
     WeaponWeb toWeaponWeb (Weapon weapon);
     List<Weapon> toWeaponList (List<WeaponEntity> weaponEntityList);
     List<WeaponListWeb> toWeaponWebList (List<Weapon> weaponList);
-
     Weapon toWeapon(WeaponCreate weaponCreate);
-    @Mapping(target = "type", ignore = true)
+    @Mapping(target = "type")
     WeaponEntity toWeaponEntity(Weapon weapon);
 }

@@ -17,7 +17,6 @@ import java.util.Optional;
 public class TeamRepositoryImpl implements TeamRepository {
     @Autowired
     TeamDAO teamDAO;
-
     @Override
     public Optional<Team> getById(int id) {
         try {
@@ -42,15 +41,30 @@ public class TeamRepositoryImpl implements TeamRepository {
         return teamList;
     }
 
+
     @Override
     public int insertTeam(Team team) {
+
+        TeamEntity teamEntity = TeamMapper.mapper.toTeamEntity(team);
+        teamEntity.setTerrorist(setPosition(team));
+        teamDAO.save(teamEntity);
+        return 0;
+    }
+
+    @Override
+    public int updateTeam(Team team) {
+        TeamEntity teamEntity = TeamMapper.mapper.toTeamEntity(team);
+        teamEntity.setTerrorist(setPosition(team));
+        teamDAO.save(teamEntity);
+        return 0;
+    }
+
+    @Override
+    public boolean setPosition(Team team) {
         boolean position = true;
         if (team.getPosition().equals("COUNTER TERRORIST"))
             position = false;
-        TeamEntity teamEntity = TeamMapper.mapper.toTeamEntity(team);
-        teamEntity.setTerrorist(position);
-        teamDAO.save(teamEntity);
-        return 0;
+        return position;
     }
 
     @Override
