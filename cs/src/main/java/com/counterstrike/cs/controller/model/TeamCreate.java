@@ -12,10 +12,4 @@ import lombok.Setter;
 public class TeamCreate {
     private String name;
     private String position;
-
-    public void setPosition(String position) {
-        if(!(position.equals("COUNTER TERRORIST") || position.equals("TERRORIST")))
-            throw new ValidationException("EL EQUIPO TIENE QUE SER *TERRORIST* O *COUNTER TERRORIST*");
-        this.position = position;
-    }
 }

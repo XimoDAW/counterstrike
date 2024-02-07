@@ -1,4 +1,4 @@
-package com.counterstrike.cs.controller.impl;
+package com.counterstrike.cs.controller;
 
 import com.counterstrike.cs.controller.model.WeaponCreate;
 import com.counterstrike.cs.controller.model.WeaponListWeb;
@@ -44,6 +44,7 @@ public class WeaponController {
     @PostMapping("/weapon")
     public Response insertWeapon(@RequestBody WeaponCreate weaponCreate) {
         Weapon weapon = WeaponMapper.mapper.toWeapon(weaponCreate);
+        validate(weapon);
         weapon.setType(typeService.getById(weaponCreate.getId_type()));
         Response response = new Response(weaponService.insertWeapon(weapon));
         return response;
@@ -59,8 +60,8 @@ public class WeaponController {
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/weapon/{id}")
     public Response updateWeapon(@PathVariable("id") int id, @RequestBody WeaponCreate weaponCreate) {
-        validate(weaponCreate);
         Optional<Weapon> weapon = weaponService.getById(id);
+        validate(weapon);
         weapon.get().setName(weaponCreate.getName());
         weapon.get().setType(typeService.getById(weaponCreate.getId_type()));
         weaponService.updateWeapon(weapon.orElse(null));

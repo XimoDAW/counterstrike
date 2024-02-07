@@ -1,4 +1,4 @@
-package com.counterstrike.cs.domain.impl;
+package com.counterstrike.cs.domain.service.impl;
 
 import com.counterstrike.cs.domain.entity.Weapon;
 import com.counterstrike.cs.domain.repository.WeaponRepository;

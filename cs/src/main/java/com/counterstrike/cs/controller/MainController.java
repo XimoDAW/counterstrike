@@ -1,4 +1,4 @@
-package com.counterstrike.cs.controller.impl;
+package com.counterstrike.cs.controller;
 
 import com.counterstrike.cs.controller.model.*;
 import com.counterstrike.cs.domain.entity.Player;
@@ -55,8 +55,8 @@ public class MainController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/player")
     public Response insertPlayer(@RequestBody PlayerCreate playerCreate) {
-        validate(playerCreate);
         Player player = PlayerMapper.mapper.toPlayer(playerCreate);
+        validate(player);
         player.setServer(serverService.getById(playerCreate.getId_server()).orElse(null));
         player.setTeam(teamService.getById(playerCreate.getId_team()).orElse(null));
         List<Weapon> weapons = new ArrayList<>();
@@ -79,8 +79,8 @@ public class MainController {
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/player/{id}")
     public Response updatePlayer(@PathVariable("id") int id, @RequestBody PlayerCreate playerCreate) {
-        validate(playerCreate);
         Optional<Player> player = playerService.getById(id);
+        validate(player);
         player.get().setName(playerCreate.getName());
         player.get().setLevel(playerCreate.getLevel());
         player.get().setBirthYear(playerCreate.getBirthYear());

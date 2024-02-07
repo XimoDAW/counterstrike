@@ -1,4 +1,4 @@
-package com.counterstrike.cs.controller.impl;
+package com.counterstrike.cs.controller;
 
 import com.counterstrike.cs.controller.model.TeamCreate;
 import com.counterstrike.cs.controller.model.TeamListWeb;
@@ -41,6 +41,7 @@ public class TeamController {
     @PostMapping("/team")
     public Response insertTeam(@RequestBody TeamCreate teamCreate) {
         Team team = TeamMapper.mapper.toTeam(teamCreate);
+        validate(team);
         Response response = new Response(teamService.insertTeam(team));
         return response;
     }
@@ -55,8 +56,8 @@ public class TeamController {
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/team/{id}")
     public Response updateTeam(@PathVariable("id") int id, @RequestBody TeamCreate teamCreate) {
-        validate(teamCreate);
         Optional<Team> team = teamService.getById(id);
+        validate(team);
         team.get().setName(teamCreate.getName());
         team.get().setPosition(teamCreate.getPosition());
         teamService.updateTeam(team.orElse(null));
