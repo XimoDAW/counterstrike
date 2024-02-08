@@ -41,7 +41,6 @@ public class TeamController {
     @PostMapping("/team")
     public Response insertTeam(@RequestBody TeamCreate teamCreate) {
         Team team = TeamMapper.mapper.toTeam(teamCreate);
-        validate(team);
         Response response = new Response(teamService.insertTeam(team));
         return response;
     }
@@ -57,10 +56,7 @@ public class TeamController {
     @PutMapping("/team/{id}")
     public Response updateTeam(@PathVariable("id") int id, @RequestBody TeamCreate teamCreate) {
         Optional<Team> team = teamService.getById(id);
-        validate(team);
-        team.get().setName(teamCreate.getName());
-        team.get().setPosition(teamCreate.getPosition());
-        teamService.updateTeam(team.orElse(null));
+        teamService.updateTeam(team.orElse(null), teamCreate.getName(), teamCreate.getPosition());
         Response response = new Response(team);
         return response;
     }

@@ -3,7 +3,6 @@ package com.counterstrike.cs.persistance.impl;
 import com.counterstrike.cs.domain.entity.Team;
 import com.counterstrike.cs.domain.repository.TeamRepository;
 import com.counterstrike.cs.exception.ResourceNotFoundException;
-import com.counterstrike.cs.mapper.ServerMapper;
 import com.counterstrike.cs.mapper.TeamMapper;
 import com.counterstrike.cs.persistance.dao.TeamDAO;
 import com.counterstrike.cs.persistance.entity.TeamEntity;
@@ -21,12 +20,6 @@ public class TeamRepositoryImpl implements TeamRepository {
     public Optional<Team> getById(int id) {
         try {
             Team team = TeamMapper.mapper.toTeam(teamDAO.findById(id));
-            if (team != null) {
-                String position = "TERRORIST";
-                if(teamDAO.findById(id).isTerrorist())
-                    position = "COUNTER TERRORIST";
-                team.setPosition(position);
-            }
             return Optional.ofNullable(team);
         }catch (ResourceNotFoundException e) {
             throw new RuntimeException(e.getMessage());
@@ -34,19 +27,15 @@ public class TeamRepositoryImpl implements TeamRepository {
             throw new RuntimeException(e.getMessage());
         }
     }
-
     @Override
     public List<Team> getAll() {
         List<Team> teamList = TeamMapper.mapper.toTeamList(teamDAO.findAll());
         return teamList;
     }
-
-
     @Override
     public int insertTeam(Team team) {
 
         TeamEntity teamEntity = TeamMapper.mapper.toTeamEntity(team);
-        teamEntity.setTerrorist(setPosition(team));
         teamDAO.save(teamEntity);
         return 0;
     }
@@ -54,19 +43,9 @@ public class TeamRepositoryImpl implements TeamRepository {
     @Override
     public int updateTeam(Team team) {
         TeamEntity teamEntity = TeamMapper.mapper.toTeamEntity(team);
-        teamEntity.setTerrorist(setPosition(team));
         teamDAO.save(teamEntity);
         return 0;
     }
-
-    @Override
-    public boolean setPosition(Team team) {
-        boolean position = true;
-        if (team.getPosition().equals("COUNTER TERRORIST"))
-            position = false;
-        return position;
-    }
-
     @Override
     public int deleteTeam(int id) {
         teamDAO.deleteById(id);

@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class WeaponCreate {
     private String name;
-    private int id_type;
+    private int idType;
     private int power;
     private int bullet;
     private int price;

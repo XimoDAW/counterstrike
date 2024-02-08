@@ -17,8 +17,6 @@ import java.util.Optional;
 public class ServerRepositoryImpl implements ServerRepository {
     @Autowired
     ServerDAO serverDAO;
-
-
     @Override
     public Optional<Server> getById(int id) {
         try {

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.counterstrike.cs.common.validation.Validation.validate;
+
 @Service
 public class TeamServiceImpl implements TeamService {
     @Autowired
@@ -30,12 +32,16 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public int insertTeam(Team team) {
+        validate(team);
         teamRepository.insertTeam(team);
         return 0;
     }
 
     @Override
-    public int updateTeam(Team team) {
+    public int updateTeam(Team team, String name, String position) {
+        team.setName(name);
+        team.setPosition(position);
+        validate(team);
         return teamRepository.updateTeam(team);
     }
 

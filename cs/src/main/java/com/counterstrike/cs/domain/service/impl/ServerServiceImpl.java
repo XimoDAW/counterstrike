@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.counterstrike.cs.common.validation.Validation.validate;
+
 @Service
 public class ServerServiceImpl implements ServerService {
 
@@ -35,12 +37,16 @@ public class ServerServiceImpl implements ServerService {
 
     @Override
     public int insertServer(Server server) {
+        validate(server);
         serverRepository.insertServer(server);
         return 0;
     }
 
     @Override
-    public int updateServer(Server server) {
+    public int updateServer(Server server, String name, String country) {
+        server.setName(name);
+        server.setCountry(country);
+        validate(server);
         return serverRepository.updateServer(server);
     }
 

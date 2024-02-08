@@ -16,13 +16,11 @@ import java.util.List;
 public class PlayerCreate {
     private String name;
     private String country;
-
     private int level;
-
     private Integer birthYear;
     private Integer deathYear;
-    private int id_team;
-    private int id_server;
-    private List<Integer> id_weapons;
+    private int idTeam;
+    private int idServer;
+    private List<Integer> idWeapons;
 
 }

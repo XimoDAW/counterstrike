@@ -27,7 +27,6 @@ public class WeaponRepositoryImpl implements WeaponRepository{
     public Optional<Weapon> getById(int id) {
         try {
             Weapon weapon = WeaponMapper.mapper.toWeapon(weaponDAO.findById(id));
-            weapon.setType(TypeMapper.mapper.toType(weaponDAO.findById(id).getType()));
             return Optional.ofNullable(weapon);
         }catch (ResourceNotFoundException e) {
             throw new RuntimeException(e.getMessage());

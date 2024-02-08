@@ -35,7 +35,6 @@ public class WeaponController {
     @GetMapping("/weapon/{id}")
     public Response getById(@PathVariable("id") int id) {
         WeaponWeb weaponWeb = WeaponMapper.mapper.toWeaponWeb(weaponService.getById(id).orElse(null));
-        weaponWeb.setType(typeService.getById(weaponService.getById(id).get().getType().getId()).getName());
         Response response = new Response(weaponWeb);
         return response;
     }
@@ -44,9 +43,7 @@ public class WeaponController {
     @PostMapping("/weapon")
     public Response insertWeapon(@RequestBody WeaponCreate weaponCreate) {
         Weapon weapon = WeaponMapper.mapper.toWeapon(weaponCreate);
-        validate(weapon);
-        weapon.setType(typeService.getById(weaponCreate.getId_type()));
-        Response response = new Response(weaponService.insertWeapon(weapon));
+        Response response = new Response(weaponService.insertWeapon(weapon, weaponCreate.getIdType()));
         return response;
     }
 
@@ -61,10 +58,7 @@ public class WeaponController {
     @PutMapping("/weapon/{id}")
     public Response updateWeapon(@PathVariable("id") int id, @RequestBody WeaponCreate weaponCreate) {
         Optional<Weapon> weapon = weaponService.getById(id);
-        validate(weapon);
-        weapon.get().setName(weaponCreate.getName());
-        weapon.get().setType(typeService.getById(weaponCreate.getId_type()));
-        weaponService.updateWeapon(weapon.orElse(null));
+        weaponService.updateWeapon(weapon.orElse(null), weaponCreate.getName(), weaponCreate.getIdType());
         Response response = new Response(weapon);
         return response;
     }

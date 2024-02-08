@@ -16,9 +16,9 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface WeaponMapper {
     WeaponMapper mapper = Mappers.getMapper(WeaponMapper.class);
-    @Mapping(target = "type", ignore = true)
+    @Mapping(target = "type")
     Weapon toWeapon (WeaponEntity weaponEntity);
-    @Mapping(target = "type", ignore = true)
+    @Mapping(target = "type", expression = "java(weapon.getType().getName())")
     WeaponWeb toWeaponWeb (Weapon weapon);
     List<Weapon> toWeaponList (List<WeaponEntity> weaponEntityList);
     List<WeaponListWeb> toWeaponWebList (List<Weapon> weaponList);

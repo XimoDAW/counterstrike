@@ -42,7 +42,6 @@ public class ServerController {
     @PostMapping("/server")
     public Response insertServer(@RequestBody ServerCreate serverCreate) {
         Server server = ServerMapper.mapper.toServer(serverCreate);
-        validate(server);
         serverService.insertServer(server);
         Response response = new Response(server.getId());
         return response;
@@ -59,10 +58,7 @@ public class ServerController {
     @PutMapping("/server/{id}")
     public Response updateServer(@PathVariable("id") int id, @RequestBody ServerCreate serverCreate) {
         Optional<Server> server = serverService.getById(id);
-        validate(server);
-        server.get().setName(serverCreate.getName());
-        server.get().setCountry(serverCreate.getCountry());
-        serverService.updateServer(server.orElse(null));
+        serverService.updateServer(server.orElse(null), serverCreate.getName(), serverCreate.getCountry());
         Response response = new Response(server);
         return response;
     }

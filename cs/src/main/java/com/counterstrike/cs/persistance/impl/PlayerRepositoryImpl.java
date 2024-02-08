@@ -29,14 +29,12 @@ public class PlayerRepositoryImpl implements PlayerRepository {
     public Optional<Player> getById(int id) {
         try {
             Player player = PlayerMapper.mapper.toPlayer(playerDAO.findById(id));
-            player.setWeapons(WeaponMapper.mapper.toWeaponList(playerDAO.findById(id).getWeapons()));
             return Optional.ofNullable(player);
         }catch (ResourceNotFoundException e) {
             throw new RuntimeException(e.getMessage());
         }catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
-
     }
 
     @Override

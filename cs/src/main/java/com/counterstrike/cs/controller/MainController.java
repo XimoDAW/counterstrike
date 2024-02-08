@@ -43,11 +43,6 @@ public class MainController {
     @GetMapping("/player/{id}")
     public Response getById(@PathVariable("id") int id) {
         PlayerDetailWeb playerDetailWeb = PlayerMapper.mapper.toPlayerDetailWeb(playerService.getById(id).orElse(null));
-        playerDetailWeb.setServer(playerService.getById(id).get().getServer().getName());
-        playerDetailWeb.setTeam(playerService.getById(id).get().getTeam().getName());
-        List<String> weapons = new ArrayList<>();
-        playerService.getById(id).get().getWeapons().forEach(weapon -> weapons.add(weapon.getName()));
-        playerDetailWeb.setWeapons(weapons);
         Response response = new Response(playerDetailWeb);
         return response;
     }
@@ -56,15 +51,7 @@ public class MainController {
     @PostMapping("/player")
     public Response insertPlayer(@RequestBody PlayerCreate playerCreate) {
         Player player = PlayerMapper.mapper.toPlayer(playerCreate);
-        validate(player);
-        player.setServer(serverService.getById(playerCreate.getId_server()).orElse(null));
-        player.setTeam(teamService.getById(playerCreate.getId_team()).orElse(null));
-        List<Weapon> weapons = new ArrayList<>();
-        playerCreate.getId_weapons().forEach(id -> {
-            weapons.add(weaponService.getById(id).orElse(null));
-        });
-        player.setWeapons(weapons);
-        playerService.insertPlayer(player);
+        playerService.insertPlayer(player, playerCreate.getIdTeam(), playerCreate.getIdServer(), playerCreate.getIdWeapons());
         Response response = new Response(player.getId());
         return response;
     }
@@ -80,19 +67,7 @@ public class MainController {
     @PutMapping("/player/{id}")
     public Response updatePlayer(@PathVariable("id") int id, @RequestBody PlayerCreate playerCreate) {
         Optional<Player> player = playerService.getById(id);
-        validate(player);
-        player.get().setName(playerCreate.getName());
-        player.get().setLevel(playerCreate.getLevel());
-        player.get().setBirthYear(playerCreate.getBirthYear());
-        player.get().setDeathYear(playerCreate.getDeathYear());
-        player.get().setServer(serverService.getById(playerCreate.getId_server()).orElse(null));
-        player.get().setTeam(teamService.getById(playerCreate.getId_team()).orElse(null));
-        List<Weapon> weapons = new ArrayList<>();
-        playerCreate.getId_weapons().forEach(idWeapon -> {
-            weapons.add(weaponService.getById(idWeapon).orElse(null));
-        });
-        player.get().setWeapons(weapons);
-        playerService.updatePlayer(player.orElse(null));
+        playerService.updatePlayer(player.orElse(null), playerCreate.getName(), playerCreate.getLevel(), playerCreate.getBirthYear(), playerCreate.getDeathYear(), playerCreate.getIdTeam(), playerCreate.getIdServer(), playerCreate.getIdWeapons());
         Response response = new Response(player);
         return response;
     }

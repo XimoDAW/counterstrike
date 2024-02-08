@@ -25,13 +25,16 @@ public interface PlayerMapper {
 
     @Mapping(target = "team")
     @Mapping(target = "server")
-    @Mapping(target = "weapons", ignore = true)
+    @Mapping(target = "weapons")
     Player toPlayer(PlayerEntity playerEntity);
 
+    @Mapping(target = "team", expression = "java(player.getTeam().getName())")
+    @Mapping(target = "server", expression = "java(player.getServer().getName())")
+    @Mapping(target = "weapons", expression = "java(player.getWeapons().stream().map(Weapon::getName).collect(java.util.stream.Collectors.toList()))")
+    PlayerDetailWeb toPlayerDetailWeb(Player player);
     @Mapping(target = "team", ignore = true)
     @Mapping(target = "server", ignore = true)
     @Mapping(target = "weapons", ignore = true)
-    PlayerDetailWeb toPlayerDetailWeb(Player player);
     Player toPlayer(PlayerCreate playerCreate);
     PlayerEntity toPlayerEntity(Player player);
 }

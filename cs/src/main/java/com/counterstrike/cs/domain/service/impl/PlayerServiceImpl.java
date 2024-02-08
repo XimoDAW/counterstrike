@@ -1,6 +1,7 @@
 package com.counterstrike.cs.domain.service.impl;
 
 import com.counterstrike.cs.domain.entity.Player;
+import com.counterstrike.cs.domain.entity.Weapon;
 import com.counterstrike.cs.domain.repository.PlayerRepository;
 import com.counterstrike.cs.domain.repository.ServerRepository;
 import com.counterstrike.cs.domain.repository.TeamRepository;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static com.counterstrike.cs.common.validation.Validation.validate;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -55,12 +58,19 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public int insertPlayer(Player player) {
-        validatePlayer(player);
+    public int insertPlayer(Player player, int idTeam, int idServer, List<Integer> idWeapons) {
+        player.setServer(serverRepository.getById(idServer).orElse(null));
+        player.setTeam(teamRepository.getById(idTeam).orElse(null));
+        List<Weapon> weapons = new ArrayList<>();
+        idWeapons.forEach(id -> {
+            weapons.add(weaponRepository.getById(id).orElse(null));
+        });
+        player.setWeapons(weapons);
+        validate(player);
         return playerRepository.insertPlayer(player);
     }
 
-    @Override
+    /*@Override
     public boolean validatePlayer(Player player) {
         if(getPlayersByTeam(player.getTeam().getId()).size() >=5)
             throw new ValidationException("Limite máximo de jugadores. Un equipo solo puede tener 5 jugadores");
@@ -69,11 +79,22 @@ public class PlayerServiceImpl implements PlayerService {
         }else {
             throw new ValidationException("El pais del jugador debe coincidir con el pais de equipo y de servidor");
         }
-    }
+    }*/
 
     @Override
-    public int updatePlayer(Player player) {
-        validatePlayer(player);
+    public int updatePlayer(Player player, String name, int level, Integer birthYear, Integer deathYear, int idTeam, int idServer, List<Integer> idWeapons) {
+        player.setName(name);
+        player.setLevel(level);
+        player.setBirthYear(birthYear);
+        player.setDeathYear(deathYear);
+        player.setServer(serverRepository.getById(idServer).orElse(null));
+        player.setTeam(teamRepository.getById(idTeam).orElse(null));
+        List<Weapon> weapons = new ArrayList<>();
+        idWeapons.forEach(idWeapon -> {
+            weapons.add(weaponRepository.getById(idWeapon).orElse(null));
+        });
+        player.setWeapons(weapons);
+        validate(player);
         return playerRepository.updatePlayer(player);
     }
 
